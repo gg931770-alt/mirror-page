@@ -6,7 +6,7 @@ import {
   Check, X, Play, MessageCircle, Star, Package, ShieldCheck, Layers, Video
 } from 'lucide-react';
 
-export default function App() {
+export default function MieLanding() {
   return (
     <div className="min-h-screen text-warm-text bg-warm-bg overflow-x-hidden selection:bg-warm-cta selection:text-white">
       <HeroSection />
