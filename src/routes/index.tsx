@@ -1,26 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import MieLanding from "@/components/MieLanding";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Método MIE · Daphne Lucchesi" },
+      { name: "description", content: "O Método MIE é o passo a passo pra você sair do caos da rotina, parar de gritar e fazer seu filho te ouvir e te respeitar." },
+      { property: "og:title", content: "Método MIE · Daphne Lucchesi" },
+      { property: "og:description", content: "Maternidade presente, sem grito e sem culpa. Método criado por Daphne Lucchesi." },
+    ],
+  }),
+  component: MieLanding,
 });
-
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
-}
