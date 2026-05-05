@@ -46,7 +46,7 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: dist/
-          server-dir: public_html/mie-product
+          server-dir: public_html/mie-product/
           timeout: 120000
           dangerous-clean-slate: false
           dry-run: false
