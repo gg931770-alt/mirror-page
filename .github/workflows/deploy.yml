@@ -51,7 +51,7 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: dist/
-          server-dir: mie-product/
+          server-dir: /
           dangerous-clean-slate: true
           timeout: 120000
           log-level: verbose
