@@ -45,8 +45,8 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           protocol: ftp
           port: 21
-          local-dir: dist/server/
-          server-dir: public/
+          local-dir: dist/
+          server-dir: mie-product/
           timeout: 120000
           dangerous-clean-slate: false
           dry-run: false
