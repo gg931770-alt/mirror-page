@@ -18,18 +18,26 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps --no-audit --no-fund
+      # 🔹 instala dependências SOMENTE do frontend
+      - name: Install frontend dependencies
+        run: |
+          cd client
+          npm install --legacy-peer-deps --no-audit --no-fund
 
-      - name: Build frontend only
-        run: npm run build
+      # 🔹 builda SOMENTE o frontend (gera client/dist)
+      - name: Build frontend
+        run: |
+          cd client
+          npm run build
 
+      # 🔹 confirma que o build gerou index.html
       - name: Verify build output
-        run: ls -la dist
+        run: ls -la client/dist
 
+      # 🔹 cria .htaccess dentro da pasta que será enviada
       - name: Create SPA .htaccess
         run: |
-          cat > dist/.htaccess << 'EOF'
+          cat > client/dist/.htaccess << 'EOF'
           <IfModule mod_rewrite.c>
             RewriteEngine On
             RewriteBase /
@@ -40,6 +48,7 @@ jobs:
           </IfModule>
           EOF
 
+      # 🔹 envia APENAS os arquivos estáticos para o subdomínio
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -48,7 +57,7 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           protocol: ftp
           port: 21
-          local-dir: dist/
+          local-dir: client/dist/
           server-dir: /
           timeout: 120000
           dangerous-clean-slate: true
