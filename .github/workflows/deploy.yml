@@ -10,28 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
-      # instala dependências do projeto
-      - name: Install dependencies
+      - name: Instalar dependências
         run: npm install --legacy-peer-deps --no-audit --no-fund
 
-      # gera a pasta dist com o site estático
-      - name: Build project
-        run: npm run build
+      # BUILD CORRETO DO VITE (Lovable)
+      - name: Build static frontend
+        run: npx vite build
 
-      # confirma que existe index.html dentro da dist
-      - name: Verify build output
+      - name: Verificar pasta dist
         run: ls -la dist
 
-      # cria .htaccess para SPA
-      - name: Create SPA .htaccess
+      # cria o .htaccess para SPA funcionar no subdomínio
+      - name: Criar .htaccess SPA
         run: |
           cat > dist/.htaccess << 'EOF'
           <IfModule mod_rewrite.c>
@@ -44,8 +42,7 @@ jobs:
           </IfModule>
           EOF
 
-      # envia SOMENTE a pasta dist para o subdomínio
-      - name: Deploy via FTP
+      - name: Deploy via FTP para subdomínio
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -54,9 +51,9 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: dist/
-          server-dir: /
-          timeout: 120000
+          server-dir: mie-product/
           dangerous-clean-slate: true
+          timeout: 120000
           log-level: verbose
           exclude: |
             **/.git*
